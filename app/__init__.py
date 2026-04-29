@@ -31,10 +31,14 @@ def create_app(test_config=None):
 
     with app.app_context():
         from .core.routes.core_api import core_bp
+        from .ops.routes.ops_api import ops_bp
+
         app.register_blueprint(core_bp)
+        app.register_blueprint(ops_bp)
 
         # Create database tables
         from .core.models import substance, interaction, symptom, mapping, mechanism
+        from .ops.models import store, inventory, reservation
         db.create_all()
 
     return app
