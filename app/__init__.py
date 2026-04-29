@@ -12,6 +12,8 @@ def create_app(test_config=None):
         SECRET_KEY='dev',
         SQLALCHEMY_DATABASE_URI=f"sqlite:///{os.path.join(app.instance_path, 'app.db')}",
         SQLALCHEMY_TRACK_MODIFICATIONS=False,
+        SESSION_COOKIE_HTTPONLY=True,
+        SESSION_COOKIE_SAMESITE="Lax",
     )
 
     if test_config is None:
@@ -31,10 +33,13 @@ def create_app(test_config=None):
 
     with app.app_context():
         from .core.routes.core_api import core_bp
+        from .auth.routes.auth_api import auth_bp
         app.register_blueprint(core_bp)
+        app.register_blueprint(auth_bp)
 
         # Create database tables
         from .core.models import substance, interaction, symptom, mapping, mechanism
+        from .auth.models.user import User
         db.create_all()
 
     return app
