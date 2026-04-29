@@ -5,7 +5,11 @@ import os
 db = SQLAlchemy()
 
 def create_app(test_config=None):
-    app = Flask(__name__, instance_relative_config=True)
+    # Setup template and static folders for the integrated frontend
+    app = Flask(__name__,
+                instance_relative_config=True,
+                template_folder='frontend/templates',
+                static_folder='frontend/static')
 
     # Default configuration
     app.config.from_mapping(
@@ -32,14 +36,32 @@ def create_app(test_config=None):
     db.init_app(app)
 
     with app.app_context():
+        # Core Intelligence Module
         from .core.routes.core_api import core_bp
-        from .auth.routes.auth_api import auth_bp
         app.register_blueprint(core_bp)
+
+        # User & Authentication Module
+        from .auth.routes.auth_api import auth_bp
         app.register_blueprint(auth_bp)
+
+        # Delivery & Inventory (OPS) Module
+        from .ops.routes.ops_api import ops_bp
+        app.register_blueprint(ops_bp)
+
+        # Product & Catalog Module
+        from .catalog.routes.catalog_api import catalog_bp
+        app.register_blueprint(catalog_bp)
+
+        # Frontend Module
+        from .frontend.routes import frontend_bp
+        app.register_blueprint(frontend_bp)
 
         # Create database tables
         from .core.models import substance, interaction, symptom, mapping, mechanism
         from .auth.models.user import User
+        from .ops.models import store, inventory, reservation
+        from .catalog.models.product import Product
+
         db.create_all()
 
     return app
