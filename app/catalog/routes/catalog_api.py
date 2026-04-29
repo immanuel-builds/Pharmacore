@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
-from catalog.services.catalog_service import get_all_products, get_product_by_id
-from catalog.services.search_service import search_products
-from catalog.services.view_service import get_product_view
+from app.catalog.services.catalog_service import get_all_products, get_product_by_id
+from app.catalog.services.search_service import search_products
+from app.catalog.services.view_service import get_product_view
 
 catalog_api = Blueprint('catalog_api', __name__)
 

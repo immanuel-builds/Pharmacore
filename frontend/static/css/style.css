@@ -23,6 +23,32 @@ body {
     margin: 0 auto;
 }
 
+#global-nav {
+    background: var(--card-bg);
+    padding: 1rem 2rem;
+    margin: -2rem -2rem 2rem;
+    border-bottom: 1px solid #334155;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-container a {
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 700;
+}
+
+.nav-container .logo {
+    color: var(--accent-color);
+    font-size: 1.5rem;
+}
+
 header {
     margin-bottom: 2rem;
     text-align: center;
@@ -191,6 +217,28 @@ h1, h2, h3 {
     text-align: center;
     padding: 2rem;
     color: var(--text-muted);
+}
+
+.hidden { display: none; }
+
+.cart-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.remove-btn {
+    background: transparent;
+    border: 1px solid var(--error-color);
+    color: var(--error-color);
+    padding: 0.4rem 0.8rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.remove-btn:hover {
+    background: var(--error-color);
+    color: var(--text-color);
 }
 
 nav a {

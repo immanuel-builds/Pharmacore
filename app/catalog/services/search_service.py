@@ -1,4 +1,4 @@
-from catalog.models.product import Product
+from app.catalog.models.product import Product
 from sqlalchemy import or_
 
 def search_products(query):

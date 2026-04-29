@@ -1,4 +1,4 @@
-from catalog.models.product import db, Product
+from app.catalog.models.product import db, Product
 
 def seed_data():
     products = [

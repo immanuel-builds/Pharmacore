@@ -1,5 +1,5 @@
-from catalog.services.catalog_service import get_product_by_id
-from catalog.services.core_client import analyze_interactions
+from app.catalog.services.catalog_service import get_product_by_id
+from app.catalog.services.core_client import analyze_interactions
 
 def get_product_view(product_id):
     product = get_product_by_id(product_id)
