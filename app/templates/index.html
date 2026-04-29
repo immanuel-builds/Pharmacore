@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Intelligence Dashboard{% endblock %}
+
+{% block content %}
+<section id="dashboard" style="padding-top: 60px;">
+    <h1 class="serif" style="font-size: 3.5rem; margin-bottom: 40px;">Welcome to <span style="font-style: italic; color: var(--accent);">Apothecary</span></h1>
+
+    <div id="featured-products" style="display: grid; grid-template-cols: repeat(auto-fill, minmax(280px, 1fr)); gap: 30px;">
+        <!-- JS populated -->
+    </div>
+</section>
+
+<script type="module">
+    import { api, animatePageIn } from "{{ url_for('static', filename='js/app.js') }}";
+
+    async function loadDashboard() {
+        const res = await api.get('/experience/dashboard');
+        if (res.status === 'success') {
+            const container = document.getElementById('featured-products');
+            container.innerHTML = res.data.featured_products.map(p => `
+                <div class="card product-card" onclick="window.location.href='/product/${p.id}'">
+                    <div style="height: 200px; background: var(--surface-low); border-radius: 8px; margin-bottom: 20px; overflow: hidden;">
+                        <img src="${p.image_url}" style="width:100%; height:100%; object-fit:cover; opacity: 0.8;">
+                    </div>
+                    <h3 class="serif" style="font-size: 1.5rem;">${p.name}</h3>
+                    <p style="color: var(--text-dim); font-size: 0.9rem;">${p.category}</p>
+                    <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-weight: 600; color: var(--accent);">$${p.price.toFixed(2)}</span>
+                        <span style="font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px;">View Insight</span>
+                    </div>
+                </div>
+            `).join('');
+
+            animatePageIn('.product-card');
+        }
+    }
+
+    loadDashboard();
+    animatePageIn('#dashboard');
+</script>
+{% endblock %}

@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+
+{% block title %}Procurement Review{% endblock %}
+
+{% block content %}
+<div id="cart-page" style="padding: 60px 0;">
+    <h1 class="serif" style="font-size: 3rem; margin-bottom: 40px;">Procurement Review</h1>
+
+    <div style="display: grid; grid-template-columns: 1fr 350px; gap: 60px;">
+        <div id="cart-items">
+            <!-- Populated by JS -->
+            <div class="state-loading">Retrieving inventory...</div>
+        </div>
+
+        <aside>
+            <div class="card">
+                <h2 class="serif" style="margin-bottom: 20px;">Summary</h2>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 10px;">
+                    <span>Subtotal</span>
+                    <span id="subtotal">$0.00</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 20px; color: var(--text-dim); font-size: 0.9rem;">
+                    <span>Logistics</span>
+                    <span>Calculated at next step</span>
+                </div>
+                <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 20px; margin-bottom: 30px; display: flex; justify-content: space-between; font-weight: 600;">
+                    <span>Total Commitment</span>
+                    <span id="total" style="color: var(--accent);">$0.00</span>
+                </div>
+
+                <button id="checkout-btn" class="btn btn-primary" style="width: 100%;">Initiate Procurement</button>
+            </div>
+        </aside>
+    </div>
+</div>
+
+<script type="module">
+    import { api, animatePageIn } from "{{ url_for('static', filename='js/app.js') }}";
+
+    const userLocation = { lat: 12.9710, lng: 77.5940 }; // Mocked for demo
+
+    async function loadCart() {
+        const res = await api.get('/commerce/cart');
+        if (res.status === 'success') {
+            const container = document.getElementById('cart-items');
+            if (res.data.length === 0) {
+                container.innerHTML = '<p style="color: var(--text-dim);">Your procurement queue is empty.</p>';
+                return;
+            }
+
+            container.innerHTML = res.data.map(item => `
+                <div class="card" style="margin-bottom: 20px; display: flex; gap: 20px; align-items: center;">
+                    <div style="width: 80px; height: 80px; background: var(--surface-low); border-radius: 8px; overflow: hidden;">
+                        <img src="${item.image_url}" style="width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div style="flex-grow: 1;">
+                        <h3 class="serif">${item.name}</h3>
+                        <p style="font-size: 0.8rem; color: var(--text-dim);">${item.generic_name}</p>
+                    </div>
+                    <div style="text-align: right;">
+                        <p style="font-weight: 600;">$${(item.price * item.quantity).toFixed(2)}</p>
+                        <p style="font-size: 0.8rem; color: var(--text-dim);">Qty: ${item.quantity}</p>
+                    </div>
+                </div>
+            `).join('');
+
+            const total = res.data.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            document.getElementById('subtotal').textContent = `$${total.toFixed(2)}`;
+            document.getElementById('total').textContent = `$${total.toFixed(2)}`;
+
+            animatePageIn('.card');
+        } else {
+            window.location.href = '/login';
+        }
+    }
+
+    document.getElementById('checkout-btn').addEventListener('click', async () => {
+        const res = await api.post('/commerce/checkout', { user_location: userLocation });
+        if (res.status === 'success') {
+            alert(`Order #${res.data.order_id} created!\nStore: ${res.data.store}\nETA: ${res.data.eta}`);
+            // In a real app, go to payment page
+            await api.post(`/commerce/order/${res.data.order_id}/pay`, { reservation_ids: res.data.reservation_ids });
+            alert('Payment processed successfully.');
+            window.location.href = '/';
+        } else {
+            alert(res.error);
+        }
+    });
+
+    loadCart();
+    animatePageIn('#cart-page');
+</script>
+{% endblock %}

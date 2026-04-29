@@ -32,13 +32,26 @@ def create_app(test_config=None):
     with app.app_context():
         from .core.routes.core_api import core_bp
         from .ops.routes.ops_api import ops_bp
+        from .auth.routes.auth_api import auth_bp
+        from .catalog.routes.catalog_api import catalog_bp
+        from .commerce.routes.commerce_api import commerce_bp
+        from .experience.routes.experience_api import experience_bp
+        from .routes.ui_routes import ui_bp
 
         app.register_blueprint(core_bp)
         app.register_blueprint(ops_bp)
+        app.register_blueprint(auth_bp)
+        app.register_blueprint(catalog_bp)
+        app.register_blueprint(commerce_bp)
+        app.register_blueprint(experience_bp)
+        app.register_blueprint(ui_bp)
 
         # Create database tables
         from .core.models import substance, interaction, symptom, mapping, mechanism
         from .ops.models import store, inventory, reservation
+        from .auth.models import user
+        from .catalog.models import product
+        from .commerce.models import commerce
         db.create_all()
 
     return app
