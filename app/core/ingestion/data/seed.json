@@ -1,0 +1,224 @@
+{
+  "substances": [
+    {
+      "name": "Aspirin",
+      "category": "NSAID",
+      "mechanism": "Irreversible inhibition of COX-1 and COX-2",
+      "half_life_hours": 0.25,
+      "primary_organ": "liver",
+      "confidence": 1.0,
+      "source": "manual",
+      "verified": true,
+      "mechanism_nodes": [
+        {"node_name": "COX-1", "node_type": "enzyme", "effect": "inhibition"},
+        {"node_name": "COX-2", "node_type": "enzyme", "effect": "inhibition"},
+        {"node_name": "Platelets", "node_type": "cell", "effect": "inhibition of aggregation"}
+      ]
+    },
+    {
+      "name": "Warfarin",
+      "category": "Anticoagulant",
+      "mechanism": "Inhibition of vitamin K epoxide reductase",
+      "half_life_hours": 40.0,
+      "primary_organ": "liver",
+      "confidence": 1.0,
+      "source": "manual",
+      "verified": true,
+      "mechanism_nodes": [
+        {"node_name": "VKORC1", "node_type": "enzyme", "effect": "inhibition"}
+      ]
+    },
+    {
+      "name": "Morphine",
+      "category": "Opioid Analgesic",
+      "mechanism": "Mu-opioid receptor agonist",
+      "half_life_hours": 2.0,
+      "primary_organ": "cns",
+      "confidence": 1.0,
+      "source": "manual",
+      "verified": true,
+      "mechanism_nodes": [
+        {"node_name": "MOR", "node_type": "receptor", "effect": "agonism"}
+      ],
+      "symptom_mappings": [
+        {"symptom_name": "Respiratory Depression", "relevance_score": 0.9},
+        {"symptom_name": "Nausea", "relevance_score": 0.7}
+      ]
+    },
+    {
+      "name": "Diazepam",
+      "category": "Benzodiazepine",
+      "mechanism": "Positive allosteric modulator of GABA-A receptor",
+      "half_life_hours": 48.0,
+      "primary_organ": "cns",
+      "confidence": 1.0,
+      "source": "manual",
+      "verified": true,
+      "mechanism_nodes": [
+        {"node_name": "GABA-A", "node_type": "receptor", "effect": "positive modulation"}
+      ],
+      "symptom_mappings": [
+        {"symptom_name": "Confusion", "relevance_score": 0.8},
+        {"symptom_name": "Drowsiness", "relevance_score": 0.9}
+      ]
+    },
+    {
+      "name": "Ibuprofen",
+      "category": "NSAID",
+      "mechanism": "Reversible inhibition of COX-1 and COX-2",
+      "half_life_hours": 2.0,
+      "primary_organ": "liver",
+      "confidence": 1.0,
+      "source": "manual",
+      "verified": true,
+      "mechanism_nodes": [
+        {"node_name": "COX-1", "node_type": "enzyme", "effect": "inhibition"},
+        {"node_name": "COX-2", "node_type": "enzyme", "effect": "inhibition"}
+      ]
+    },
+    {
+      "name": "St. John’s Wort",
+      "category": "Herbal Supplement",
+      "mechanism": "Induction of CYP3A4 and P-glycoprotein",
+      "half_life_hours": 24.0,
+      "primary_organ": "liver",
+      "confidence": 0.9,
+      "source": "manual",
+      "verified": true,
+      "mechanism_nodes": [
+        {"node_name": "CYP3A4", "node_type": "enzyme", "effect": "induction"}
+      ]
+    },
+    {
+      "name": "Paracetamol",
+      "category": "Analgesic",
+      "mechanism": "Weak inhibition of COX-1 and COX-2, possible COX-3 inhibition",
+      "half_life_hours": 2.5,
+      "primary_organ": "liver",
+      "confidence": 1.0,
+      "source": "manual",
+      "verified": true
+    },
+    {
+      "name": "Caffeine",
+      "category": "Stimulant",
+      "mechanism": "Adenosine receptor antagonist",
+      "half_life_hours": 5.0,
+      "primary_organ": "cns",
+      "confidence": 1.0,
+      "source": "manual",
+      "verified": true,
+      "mechanism_nodes": [
+        {"node_name": "Adenosine Receptor", "node_type": "receptor", "effect": "antagonism"}
+      ],
+      "symptom_mappings": [
+        {"symptom_name": "Tachycardia", "relevance_score": 0.6},
+        {"symptom_name": "Insomnia", "relevance_score": 0.8}
+      ]
+    },
+    {
+      "name": "Alprazolam",
+      "category": "Benzodiazepine",
+      "mechanism": "Positive allosteric modulator of GABA-A receptor",
+      "half_life_hours": 11.2,
+      "primary_organ": "cns",
+      "confidence": 1.0,
+      "source": "manual",
+      "verified": true,
+      "mechanism_nodes": [
+        {"node_name": "GABA-A", "node_type": "receptor", "effect": "positive modulation"}
+      ],
+      "symptom_mappings": [
+        {"symptom_name": "Drowsiness", "relevance_score": 0.95},
+        {"symptom_name": "Dizziness", "relevance_score": 0.7}
+      ]
+    },
+    {
+      "name": "Sertraline",
+      "category": "SSRI",
+      "mechanism": "Selective serotonin reuptake inhibition",
+      "half_life_hours": 26.0,
+      "primary_organ": "cns",
+      "confidence": 1.0,
+      "source": "manual",
+      "verified": true,
+      "mechanism_nodes": [
+        {"node_name": "SERT", "node_type": "transporter", "effect": "inhibition"}
+      ],
+      "symptom_mappings": [
+        {"symptom_name": "Nausea", "relevance_score": 0.6},
+        {"symptom_name": "Insomnia", "relevance_score": 0.5}
+      ]
+    }
+  ],
+  "symptoms": [
+    {"name": "Respiratory Depression", "description": "Slow and ineffective breathing"},
+    {"name": "Nausea", "description": "Sensation of unease and discomfort in the upper stomach"},
+    {"name": "Confusion", "description": "Lack of clarity in thinking"},
+    {"name": "Drowsiness", "description": "Feeling of being sleepy"},
+    {"name": "Tachycardia", "description": "Rapid heart rate"},
+    {"name": "Insomnia", "description": "Difficulty falling or staying asleep"},
+    {"name": "Dizziness", "description": "Feeling faint, woozy, weak or unsteady"},
+    {"name": "Fatigue", "description": "Feeling overtired, with low energy and a strong desire to sleep"},
+    {"name": "Headache", "description": "Pain in any region of the head"},
+    {"name": "Rash", "description": "Area of irritated or swollen skin"},
+    {"name": "Vomiting", "description": "Forcible expulsion of the contents of one's stomach through the mouth"}
+  ],
+  "interactions": [
+    {
+      "substance_a": "Warfarin",
+      "substance_b": "Aspirin",
+      "severity": "critical",
+      "risk_score": 0.9,
+      "mechanism": "Pharmacodynamic synergism and inhibition of platelet aggregation",
+      "description": "Increased risk of severe bleeding.",
+      "confidence": 1.0,
+      "source": "manual",
+      "verified": true
+    },
+    {
+      "substance_a": "Morphine",
+      "substance_b": "Diazepam",
+      "severity": "critical",
+      "risk_score": 0.95,
+      "mechanism": "Additive CNS depression",
+      "description": "Extreme risk of fatal respiratory depression.",
+      "confidence": 1.0,
+      "source": "manual",
+      "verified": true
+    },
+    {
+      "substance_a": "Aspirin",
+      "substance_b": "Ibuprofen",
+      "severity": "moderate",
+      "risk_score": 0.5,
+      "mechanism": "Competitive inhibition of COX-1",
+      "description": "Ibuprofen may interfere with the antiplatelet effect of low-dose aspirin.",
+      "confidence": 0.9,
+      "source": "manual",
+      "verified": true
+    },
+    {
+      "substance_a": "Warfarin",
+      "substance_b": "St. John’s Wort",
+      "severity": "critical",
+      "risk_score": 0.8,
+      "mechanism": "Induction of Warfarin metabolism via CYP3A4",
+      "description": "Reduced anticoagulant effect of Warfarin, increasing risk of thrombosis.",
+      "confidence": 0.9,
+      "source": "manual",
+      "verified": true
+    },
+    {
+      "substance_a": "Alprazolam",
+      "substance_b": "Caffeine",
+      "severity": "moderate",
+      "risk_score": 0.4,
+      "mechanism": "Antagonistic effects on CNS",
+      "description": "Caffeine may reduce the sedative effects of alprazolam.",
+      "confidence": 0.9,
+      "source": "manual",
+      "verified": true
+    }
+  ]
+}
